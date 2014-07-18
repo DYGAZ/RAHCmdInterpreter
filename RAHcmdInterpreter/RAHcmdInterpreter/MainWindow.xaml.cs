@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace RAHcmdInterpreter
 {
@@ -53,6 +54,7 @@ namespace RAHcmdInterpreter
             if (e.Key == Key.Return)
             {
                 String input = getInputLine().Substring(7);
+                input = input.Substring(0, input.Length - 2);
                 String result = core.ParseInput(input);
                 writeToOutput(result);
             }

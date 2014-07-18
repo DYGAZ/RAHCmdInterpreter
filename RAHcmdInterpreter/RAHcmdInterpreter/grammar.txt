@@ -1,0 +1,39 @@
+﻿Parse:
+	>Graph
+	>Raw
+
+Graph:
+	>Table
+
+Raw:
+	>Table
+
+Table:
+	>Column
+
+Column:
+	<EndPoint>
+
+
+
+Tabs:
+	>CloseAll
+	>CloseAllBut
+
+CloseAll:
+	<EndPoint>
+
+CloseAllBut:
+	>Index
+	>Index[]
+
+Index:
+	<EndPoint>
+
+
+TOKENS:
+Command
+Keyword
+Data
+
+
