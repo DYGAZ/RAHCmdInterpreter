@@ -107,8 +107,8 @@ namespace RAHcmdInterpreter
         {
             if (GraphParse != null)
             {
-                String data = getDataFromParse();
-                ParseEventArgs e = new ParseEventArgs(data);
+                String xml = getDataFromParse();
+                ParseEventArgs e = new ParseEventArgs(xml);
                 output += "Graphing Parse data\n";
                 GraphParse(this, e);
             }
@@ -127,7 +127,7 @@ namespace RAHcmdInterpreter
 
         String getDataFromParse()
         {
-            //Get the data from Parse.com Here
+            //Get the data from Parse.com Here and put it into xml
             //
             return "";
         }

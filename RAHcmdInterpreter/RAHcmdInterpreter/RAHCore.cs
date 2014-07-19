@@ -20,11 +20,11 @@ namespace RAHcmdInterpreter
         {
             //TODO Parse
             //
-            p.Parse(input);
+          /*  p.Parse(input);
             Node root = p.getRoot();
-            string response = i.Interpret(root);
+            string response = i.Interpret(root);*/
 
-            return response;
+            return "derp";// response;
         }
     }
 }
