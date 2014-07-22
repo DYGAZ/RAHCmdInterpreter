@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Text.RegularExpressions;
+using Parse;
 
 namespace RAHcmdInterpreter
 {
@@ -27,8 +27,13 @@ namespace RAHcmdInterpreter
 
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
             core = new RAHCore();
+            core.CloseTab += closeTabs;
+            core.GraphParse += graphParse;
+            core.RawParse += rawParse;
+
             setupNewLine();
         }
 
@@ -55,8 +60,7 @@ namespace RAHcmdInterpreter
             {
                 String input = getInputLine().Substring(7);
                 input = input.Substring(0, input.Length - 2);
-                String result = core.ParseInput(input);
-                writeToOutput(result);
+                core.ParseInput(input);
             }
         }
 
@@ -66,6 +70,27 @@ namespace RAHcmdInterpreter
             {
                 setupNewLine();
             }
+        }
+
+        void closeTabs(Object sender, CloseTabEventArgs e)
+        {
+            writeToOutput(core.getOutput());
+            String d = e.getData();
+            if (d.Length > 0)
+            {
+                writeToOutput("Keeping tabs: " + d + " open and closing all others");
+            }
+        }
+
+        void graphParse(Object sender, ParseEventArgs e)
+        {
+            writeToOutput(core.getOutput());
+        }
+
+        void rawParse(Object sender, ParseEventArgs e)
+        {
+            writeToOutput(core.getOutput());
+            writeToOutput(e.getData() + "\n");
         }
     }
 }

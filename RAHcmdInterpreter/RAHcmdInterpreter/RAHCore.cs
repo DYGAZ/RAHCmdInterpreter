@@ -3,28 +3,129 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace RAHcmdInterpreter
 {
+    public delegate void CloseTabEventHandler(Object sender, CloseTabEventArgs e);
+    public delegate void GraphParseDataEventHandler(Object sender, ParseEventArgs e);
+    public delegate void RawParseDataEventHandler(Object sender, ParseEventArgs e);
+
+    public class CloseTabEventArgs : EventArgs
+    {
+        String data;
+        public CloseTabEventArgs(String d)
+        {
+            data = d;
+        }
+
+        public String getData()
+        {
+            return data;
+        }
+    }
+
+    public class ParseEventArgs : EventArgs
+    {
+        String data;
+        public ParseEventArgs(string d)
+        {
+            data = d;
+        }
+
+        public String getData()
+        {
+            return data;
+        }
+    }
+
     class RAHCore
     {
+        public event CloseTabEventHandler CloseTab;
+        public event GraphParseDataEventHandler GraphParse;
+        public event RawParseDataEventHandler RawParse;
+
         Parser p;
         Interpreter i;
+
+        String input, output;
+
+        readonly BackgroundWorker worker;
+
         public RAHCore()
         {
             p = new Parser();
             i = new Interpreter();
+            worker = new BackgroundWorker();
+
+            input = output = "";
+
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
         }
 
-        public String ParseInput(string input)
+        void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //TODO Parse
-            //
-          /*  p.Parse(input);
+            p.Parse(input);
             Node root = p.getRoot();
-            string response = i.Interpret(root);*/
+            output = i.Interpret(root);
+        }
 
-            return "derp";// response;
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var a = i.getAction();
+            var data = i.getData();
+
+            switch (a)
+            {
+                case InterpreterAction.GraphParse:
+                    graphParseData(data);
+                    break;
+                case InterpreterAction.RawParse:
+                    rawParseData(data);
+                    break;
+                case InterpreterAction.CloseTab:
+                    closeTabs(data);
+                    break;
+            }
+        }
+
+        public void ParseInput(string input)
+        {
+            this.input = input;
+            worker.RunWorkerAsync();
+        }
+
+        void graphParseData(String data)
+        {
+            if (GraphParse != null)
+            {
+                var e = new ParseEventArgs(data);
+                GraphParse(this, e);
+            }
+        }
+
+        void rawParseData(String data)
+        {
+            if (RawParse != null)
+            {
+                var e = new ParseEventArgs(data);
+                RawParse(this, e);
+            }
+        }
+
+        void closeTabs(String data)
+        {
+            if (CloseTab != null)
+            {
+                var e = new CloseTabEventArgs(data);
+                CloseTab(this, e);
+            }
+        }
+
+        public String getOutput()
+        {
+            return output;
         }
     }
 }
