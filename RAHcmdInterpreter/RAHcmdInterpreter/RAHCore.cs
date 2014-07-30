@@ -13,13 +13,13 @@ namespace RAHcmdInterpreter
 
     public class CloseTabEventArgs : EventArgs
     {
-        String data;
-        public CloseTabEventArgs(String d)
+        List<int> data;
+        public CloseTabEventArgs(List<int> d)
         {
             data = d;
         }
 
-        public String getData()
+        public List<int> getData()
         {
             return data;
         }
@@ -87,6 +87,9 @@ namespace RAHcmdInterpreter
                 case InterpreterAction.CloseTab:
                     closeTabs(data);
                     break;
+                case InterpreterAction.BadInput:
+                    rawParseData("Bad Input Received");
+                    break;
             }
         }
 
@@ -118,7 +121,8 @@ namespace RAHcmdInterpreter
         {
             if (CloseTab != null)
             {
-                var e = new CloseTabEventArgs(data);
+                var indices = getIndices(data);
+                var e = new CloseTabEventArgs(indices);
                 CloseTab(this, e);
             }
         }
@@ -126,6 +130,22 @@ namespace RAHcmdInterpreter
         public String getOutput()
         {
             return output;
+        }
+
+        List<int> getIndices(String data)
+        {
+            var input = data.ToCharArray();
+            List<int> values = new List<int>();
+            if (input.Length == 0) return values;
+
+            int pos = 0;
+            while (pos <= input.Length)
+            {
+                values.Add((int)Char.GetNumericValue(input[pos]));
+                pos += 2;
+            }
+            return values;
+
         }
     }
 }

@@ -13,7 +13,8 @@ namespace RAHcmdInterpreter
     {
         GraphParse,
         RawParse,
-        CloseTab
+        CloseTab,
+        BadInput
     }
 
     class Interpreter
@@ -98,21 +99,37 @@ namespace RAHcmdInterpreter
         }
 
         void graphParseData(DataNode n)
-    {
-            pm.getData(n.getValue()).Wait();
-            String xml = pm.getXml();
-            data = xml;
-            IntAction = InterpreterAction.GraphParse;
-            output += "Graphing Parse data\n";
+        {
+            String column = n.getValue();
+            if (columnExist(column))
+            {
+                pm.getData(column).Wait();
+                String xml = pm.getXml();
+                data = xml;
+                IntAction = InterpreterAction.GraphParse;
+                output += "Graphing Parse data\n";
+            }
+            else
+            {
+                IntAction = InterpreterAction.BadInput;
+            }
         }
 
         void rawParseData(DataNode n)
         {
-            pm.getData(n.getValue()).Wait();
-            String xml = pm.getXml();
-            data = xml;
-            IntAction = InterpreterAction.RawParse;
-            output += "Writing Raw Parse data to output\n";
+            String column = n.getValue();
+            if (columnExist(column))
+            {
+                pm.getData(column).Wait();
+                String xml = pm.getXml();
+                data = xml;
+                IntAction = InterpreterAction.RawParse;
+                output += "Writing Raw Parse data to output\n";
+            }
+            else
+            {
+                IntAction = InterpreterAction.BadInput;
+            }
         }
 
         public InterpreterAction getAction()
@@ -123,6 +140,20 @@ namespace RAHcmdInterpreter
         public String getData()
         {
             return data;
+        }
+
+        Boolean columnExist(String column)
+        {
+            switch (column)
+            {
+                case "humidity":
+                case "LDR":
+                case "waterLevel":
+                case "fahrenheit":
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 }

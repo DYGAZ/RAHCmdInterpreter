@@ -11,31 +11,19 @@ namespace RAHcmdInterpreter
     class ParseManager
     {
         String xml = "";
+        XMLManager xmlManager = new XMLManager();
 
         public async Task getData(String column)
         {
             var query = ParseObject.GetQuery("MonitorData")
-                .OrderByDescending("createdAt");
-
-            //query.WhereEqualTo("MonitorId", "qy8Ow9Jluh"); //This id should not be hardcoded
+                .OrderByDescending("createdAt")
+                .Limit(50);
 
             var monitorData = await query.FindAsync();
             var data = monitorData
-                .Select(x => x.Get<float>(column))
-                .ToList();
+                .ToDictionary(x => (DateTime)x.CreatedAt, x => x.Get<float>(column));
 
-            serializeToXML(data, column);
-        }
-
-        void serializeToXML(List<float> data, String column)
-        {
-            var attributes = data
-                .Select(x => new XElement(column, x))
-                .ToArray();
-
-            var xmlData = new XElement("ParseData", attributes);
-
-            xml = xmlData.ToString();
+            xml = xmlManager.SerializeXML(data, column);
         }
 
         public String getXml()

@@ -1,3 +1,6 @@
 /RAHcmdInterpreter/RAHcmdInterpreter/bin/Debug/*.exe
 /RAHcmdInterpreter/RAHcmdInterpreter/bin
 /RAHcmdInterpreter/RAHcmdInterpreter/obj
+/RAHcmdInterpreter/GraphView/bin/Debug
+/RAHcmdInterpreter/GraphView/obj/Debug
+/RAHcmdInterpreter/packages/Extended.Wpf.Toolkit.2.2.1
