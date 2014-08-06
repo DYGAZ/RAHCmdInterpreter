@@ -54,15 +54,21 @@ namespace RAHcmdInterpreter
         void writeToOutput(String message)
         {
             OutputText.AppendText(message);
+            OutputText.ScrollToEnd();
         }
 
         void InputText_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                String input = getInputLine().Substring(7);
-                input = input.Substring(0, input.Length - 2);
-                core.ParseInput(input);
+                String input = getInputLine();
+                if(input.Length > 9)
+                    if(input.Substring(0,7).Equals("RAH >> "))
+                    {
+                        String command = input.Substring(7);
+                        command = command.Substring(0, command.Length - 2);
+                        core.ParseInput(command);
+                    }
             }
         }
 

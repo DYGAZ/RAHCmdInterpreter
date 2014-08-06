@@ -61,8 +61,9 @@ namespace GraphView
             max += difference/2;
             min -= difference/2;
 
-            YAxis.Minimum = min;
+
             YAxis.Maximum = max;
+            YAxis.Minimum = min;
         }
     }
 }

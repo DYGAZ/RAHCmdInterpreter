@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" Width="630">
     <Grid>
-        <DVC:Chart Name="mcChart" Canvas.Top="80" Canvas.Left="10" Width="630" Height="500" Background="LightSteelBlue" Foreground="DarkBlue" Title="Area Chart">
+        <DVC:Chart Name="mcChart" Canvas.Top="80" Canvas.Left="10" Width="630" Height="500" Background="WhiteSmoke" Foreground="DarkBlue" Title="Area Chart">
             <DVC:Chart.Series>
                 <DVC:LineSeries Name ="GraphArea" Title="MonthlyCount" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}"></DVC:LineSeries>
             </DVC:Chart.Series>

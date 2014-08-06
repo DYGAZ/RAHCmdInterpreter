@@ -34,6 +34,7 @@ namespace RAHcmdInterpreter
 
         public String Interpret(Node root)
         {
+            data = "";
             output = "";
             pm = new ParseManager();
             operate(root.child);
