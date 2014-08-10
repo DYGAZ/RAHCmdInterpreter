@@ -105,10 +105,15 @@ namespace RAHcmdInterpreter
         void graphParse(Object sender, ParseEventArgs e)
         {
             writeToOutput(core.getOutput());
-            xmlManager.DeserializeXML(e.getData());
-            var name = xmlManager.getName();
-            var data = xmlManager.getData();
-            newTab(name, data);
+            var xml = e.getData();
+            if (xml.Length > 0)
+            {
+                xmlManager.DeserializeXML(xml);
+                var name = xmlManager.getName();
+                var data = xmlManager.getData();
+                newTab(name, data);
+            }
+            else writeToOutput("Bad Input\n");
         }
 
         void rawParse(Object sender, ParseEventArgs e)
