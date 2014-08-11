@@ -87,8 +87,39 @@ namespace RAHcmdInterpreter
                 case InterpreterAction.CloseTab:
                     closeTabs(data);
                     break;
-                case InterpreterAction.BadInput:
-                    rawParseData("Bad Input Received");
+                case InterpreterAction.BadParseInput:
+                    rawParseData("Invalid Parse commands received\n" +
+                                "  >> parse -i\t for a list of available commands.");
+                    break;
+                case InterpreterAction.BadTabsInput:
+                    rawParseData("Invalid Tabs commands received\n" +
+                                "  >> tabs -i\t for a list of available commands.");
+                    break;
+                case InterpreterAction.BadColumnInput:
+                    rawParseData("Specified column does not exist. Available columns:\n" +
+                                "\t>\"humidity\"\n" +
+                                "\t>\"fahrenheit\"\n" +
+                                "\t>\"LDR\"\n" +
+                                "\t>\"waterLevel\"\n");
+                    break;
+                case InterpreterAction.ParseInfo:
+                    rawParseData("The PARSE command is used to retrieve MonitorData from the Parse database.\n" +
+                                "USAGE:  >> Parse [OPTION] [*ARGUMENTS]\n" +
+                                "OPTIONS:\n" +
+                                "  >> .. Graph [ column ]\t\t: Graphs values of the specified column\n" +
+                                "\t\t\t\t  from the past 24 hours.\n" +
+                                "  >> .. Raw [ column ]\t\t: Prints values of the specified column\n" +
+                                "\t\t\t\t  to the output window.\n"
+                                );
+                    break;
+                case InterpreterAction.TabsInfo:
+                    rawParseData("The TABS command is used to manage opened tabs.\n" +
+                                "USAGE:  >> Tabs [OPTION] [*ARGUMENTS]\n" +
+                                "OPTIONS:\n" +
+                                "  >> .. CloseAll\t\t\t: Closes all opened tabs\n" +
+                                "  >> .. CloseAllBut [ x || x,y,z ]\t: All tabs will be closed except those who's\n" +
+                                "\t\t\t\t  index is specified in the arguments.\n"
+                                );
                     break;
             }
         }

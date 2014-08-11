@@ -21,7 +21,7 @@ namespace RAHcmdInterpreter
 
             var monitorData = await query.FindAsync();
             var data = monitorData
-                .ToDictionary(x => (DateTime)x.CreatedAt, x => x.Get<float>(column));
+                .ToDictionary(x => ((DateTime)x.CreatedAt).AddHours(-4), x => x.Get<float>(column));
 
             xml = xmlManager.SerializeXML(data, column);
         }

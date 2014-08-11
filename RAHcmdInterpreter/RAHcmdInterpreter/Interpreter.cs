@@ -14,7 +14,11 @@ namespace RAHcmdInterpreter
         GraphParse,
         RawParse,
         CloseTab,
-        BadInput
+        BadParseInput,
+        BadTabsInput,
+        BadColumnInput,
+        ParseInfo,
+        TabsInfo
     }
 
     class Interpreter
@@ -68,20 +72,35 @@ namespace RAHcmdInterpreter
                     case Token.Raw:
                         rawParseData((DataNode)n.child);
                         break;
+                    case Token.Info:
+                        IntAction = InterpreterAction.ParseInfo;
+                        break;
+                    default:
+                        IntAction = InterpreterAction.BadParseInput;
+                        break;
                 }
             }
         }
 
         void tabCommand(Node n)
         {
-            switch (n.type)
+            if (n != null)
             {
-                case Token.CloseAll:
-                    closeTabs(n.child, -1);
-                    break;
-                case Token.CloseAllBut:
-                    closeTabs(n.child, 1);
-                    break;
+                switch (n.type)
+                {
+                    case Token.CloseAll:
+                        closeTabs(n.child, -1);
+                        break;
+                    case Token.CloseAllBut:
+                        closeTabs(n.child, 1);
+                        break;
+                    case Token.Info:
+                        IntAction = InterpreterAction.TabsInfo;
+                        break;
+                    default:
+                        IntAction = InterpreterAction.BadTabsInput;
+                        break;
+                }
             }
         }
 
@@ -101,35 +120,49 @@ namespace RAHcmdInterpreter
 
         void graphParseData(DataNode n)
         {
-            String column = n.getValue();
-            if (columnExist(column))
+            if (n != null)
             {
-                pm.getData(column).Wait();
-                String xml = pm.getXml();
-                data = xml;
-                IntAction = InterpreterAction.GraphParse;
-                output += "Graphing Parse data\n";
+                String column = n.getValue();
+                if (columnExist(column))
+                {
+                    pm.getData(column).Wait();
+                    String xml = pm.getXml();
+                    data = xml;
+                    IntAction = InterpreterAction.GraphParse;
+                    output += "Graphing Parse data\n";
+                }
+                else
+                {
+                    IntAction = InterpreterAction.BadColumnInput;
+                }
             }
             else
             {
-                IntAction = InterpreterAction.BadInput;
+                IntAction = InterpreterAction.BadColumnInput;
             }
         }
 
         void rawParseData(DataNode n)
         {
-            String column = n.getValue();
-            if (columnExist(column))
+            if (n != null)
             {
-                pm.getData(column).Wait();
-                String xml = pm.getXml();
-                data = xml;
-                IntAction = InterpreterAction.RawParse;
-                output += "Writing Raw Parse data to output\n";
+                String column = n.getValue();
+                if (columnExist(column))
+                {
+                    pm.getData(column).Wait();
+                    String xml = pm.getXml();
+                    data = xml;
+                    IntAction = InterpreterAction.RawParse;
+                    output += "Writing Raw Parse data to output\n";
+                }
+                else
+                {
+                    IntAction = InterpreterAction.BadColumnInput;
+                }
             }
             else
             {
-                IntAction = InterpreterAction.BadInput;
+                IntAction = InterpreterAction.BadColumnInput;
             }
         }
 

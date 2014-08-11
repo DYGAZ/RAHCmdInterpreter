@@ -88,7 +88,7 @@ namespace RAHcmdInterpreter
             {
                 String values = "";
                 d.ForEach(x => values += x + ", ");
-                writeToOutput("Keeping tabs: " + values + " open and closing all others");
+                writeToOutput("Keeping tabs: " + values + " open and closing all others.");
                 var tabitems = Tabs.Items.Cast<TabItem>()
                     .ToList();
 
@@ -113,7 +113,7 @@ namespace RAHcmdInterpreter
                 var data = xmlManager.getData();
                 newTab(name, data);
             }
-            else writeToOutput("Bad Input\n");
+            else writeToOutput("Invalid command arguments.\n");
         }
 
         void rawParse(Object sender, ParseEventArgs e)

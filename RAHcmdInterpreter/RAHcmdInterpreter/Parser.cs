@@ -20,6 +20,7 @@ namespace RAHcmdInterpreter
         {
             Node current = root;
             index = 0;
+            //input = (input[input.Length - 1].Equals(" ")) ? input : input + " ";
             input += " ";
             while (index < input.Length)
             {
@@ -36,23 +37,40 @@ namespace RAHcmdInterpreter
 
             switch (word)
             {
-                case "Parse":
+                case "Parse": 
+                case "parse":
                     type = Token.Parse;
                     break;
                 case "Tabs":
+                case "tabs":
                     type = Token.Tabs;
                     break;
                 case "Graph":
+                case "graph":
                     type = Token.Graph;
                     break;
                 case "Raw":
+                case "raw":
                     type = Token.Raw;
                     break;
                 case "CloseAll":
+                case "closeAll":
+                case "closeall":
+                case "Closeall":
                     type = Token.CloseAll;
                     break;
                 case "CloseAllBut":
+                case "CloseAllbut":
+                case "Closeallbut":
+                case "CloseallBut":
+                case "closeallBut":
+                case "closeAllBut":
+                case "closeAllbut":
+                case "closeallbut":
                     type = Token.CloseAllBut;
+                    break;
+                case "-i":
+                    type = Token.Info;
                     break;
                 default:
                     type = Token.Data;
@@ -94,6 +112,7 @@ namespace RAHcmdInterpreter
         Raw,
         CloseAll,
         CloseAllBut,
+        Info,
         Data
     }
 

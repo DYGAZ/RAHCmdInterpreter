@@ -1,0 +1,13 @@
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\bin\Release\GraphView.dll
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\bin\Release\GraphView.pdb
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\bin\Release\System.Windows.Controls.DataVisualization.Toolkit.dll
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\bin\Release\WPFToolkit.dll
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.csprojResolveAssemblyReference.cache
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\LineChart.baml
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\LineChart.g.cs
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView_MarkupCompile.cache
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.g.resources
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.Properties.Resources.resources
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.csproj.GenerateResource.Cache
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.dll
+C:\Users\Conor\Documents\GitHub\RAHCmdInterpreter\RAHcmdInterpreter\GraphView\obj\Release\GraphView.pdb
